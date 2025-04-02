@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Просмотр медиа из Telegram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { 
+            margin: 0; 
+            background: #000; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+        .media {
+            max-width: 100%;
+            max-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="media-container"></div>
+    <script>
+        // Получаем URL медиа из параметров
+        const url = new URLSearchParams(window.location.search).get('url');
+        
+        // Определяем тип (фото/видео)
+        const isVideo = url.includes('.mp4') || url.includes('.mov');
+        
+        // Вставляем медиа на страницу
+        const container = document.getElementById('media-container');
+        if (isVideo) {
+            container.innerHTML = `
+                <video controls autoplay class="media">
+                    <source src="${url}" type="video/mp4">
+                </video>
+            `;
+        } else {
+            container.innerHTML = `<img src="${url}" class="media">`;
+        }
+    </script>
+</body>
+</html>
